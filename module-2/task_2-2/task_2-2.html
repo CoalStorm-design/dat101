@@ -12,31 +12,45 @@
     <ol>
       <li>Where should you use constants, and where should you use variables? Can they all be constants?</li>
       <p>
-				Replace this with you answer
+				Konstanter brukes når en verdi ikke skal endres, som faste tall, konfigurasjoner eller matematiske konstanter. 
+        Variabler brukes når verdien skal kunne oppdateres, for eksempel brukerinput, tellere eller beregnede resultater. 
+        Ikke alt kan være en konstant, fordi mange verdier i et program må endres dynamisk.
 			</p>
       <li>How do parentheses affect the arithmetic outcome of an expression?</li>
       <p>
-				Replace this with you answer
+				 Parenteser endrer rekkefølgen JavaScript evaluerer uttrykk i. 
+         Uten parenteser følger JS vanlig matematisk prioritet (multiplikasjon før addisjon). 
+         Med parenteser kan vi tvinge JS til å beregne bestemte deler først, noe som kan endre resultatet helt.
 			</p>
       <li>How do we limit floating-point numbers to a given number of decimals?</li>
       <p>
-				Replace this with you answer
+				Vi kan begrense flyttall til et bestemt antall desimaler ved å bruke <code> toFixed(n)</code> for tekstformat, eller <code>Math.round(value * 10**n) / 10**n</code> for å beholde tallet som et nummer.
+        Begge metodene brukes for å kontrollere presisjon.
 			</p>
       <li>How can we compare two floating-point values to see if they are equal (is 12.199999 the same as 12.2)?</li>
       <p>
-				Replace this with you answer
+				 Flyttall kan ha små avrundingsfeil, så vi sammenligner dem ikke direkte med <code>===</code>.
+          I stedet bruker vi en toleranse, for eksempel: <code>Math.abs(a - b) &lt; 0.0001</code>.
+          Da kan tall som 12.199999 og 12.2 regnes som «like nok».
 			</p>
       <li>What do comparison operators return, and how can we check if they are FALSE or TRUE?</li>
       <p>
-				Replace this with you answer
+				 Sammenligningsoperatorer returnerer alltid en boolean-verdi: <code>true</code> eller <code>false</code>.
+          Vi kan sjekke dette ved å logge resultatet, eller lagre det i en variabel som: <code>let result = 5 &gt; 3;</code>
+          Da vet vi om uttrykket er sant eller ikke.
 			</p>
       <li>How does the Math.random() function work, and what can it be used for?</li>
       <p>
-				Replace this with you answer
+				<code>Math.random()</code> genererer et desimaltall mellom 0 (inklusive) og 1 (eksklusive).
+          Vi kan skalere det opp ved å multiplisere, og runde med <code>Math.floor()</code> eller <code>Math.ceil()</code>.
+          Det brukes i spill, tilfeldige valg, simuleringer og alt som trenger randomisering.
 			</p>
       <li>What is modulus (%), and when do we need this operator in mathematical operations?</li>
       <p>
-				Replace this with you answer
+				 Modulus (<code>%</code>) gir resten etter en divisjon.
+          Vi bruker det når vi skal finne rester (som sekunder, minutter eller dager), sjekke om tall er partall/oddetall,
+          lage sykliske mønstre eller jobbe med tid og konverteringer.
+          Det er et viktig verktøy når vi bryter ned tall i mindre enheter.
 			</p>
     </ol>
 		<script type="module" src="./task_2-2.mjs" defer></script>
