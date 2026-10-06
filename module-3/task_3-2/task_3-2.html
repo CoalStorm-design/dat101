@@ -10,8 +10,22 @@
       <span id="txtOut" style="white-space: nowrap"></span>
     </div>
     <ol>
-      <li>[Write the question here, and copy this for more questions]</li>
-      <p>[Write your answer here, and copy this for more answers]</p>
+      <li>
+        <strong>In Part 1, can the task be solved with a single for loop?</strong>
+        <p>Not while producing both complete sequences as two separate lines in one pass through a single ordinary for loop. The loop would need to change direction or handle two counters and distinguish the two output lines. Two simple for loops make the two sequences clear and produce exactly two lines; a single loop could be made to do it with extra branching, but it would be less direct.</p>
+      </li>
+      <li>
+        <strong>Can an infinite loop be created in a while condition? What is necessary?</strong>
+        <p>Yes. A while loop repeats whenever its condition evaluates to true. A condition such as <code>while (true)</code> remains true, so the loop does not stop unless code inside it exits with <code>break</code>, throws an error, or the program is otherwise interrupted. A changing counter is not necessary for an intentionally endless loop. In the guessing game, the condition becomes false only after a correct guess; because guesses are random, there is no fixed maximum number of iterations, even though the chance of still not matching gets smaller with each guess.</p>
+      </li>
+      <li>
+        <strong>How quickly can the computer guess, and can it do other work at the same time?</strong>
+        <p>It depends on the computer and the number of guesses. For a uniformly random guess from 1 to 1,000,000, the expected number of guesses is 1,000,000, although any individual run may take less or more. Each iteration is small, so this will usually finish quickly on a modern computer. While a normal while loop is executing synchronously on the browser's main JavaScript thread, that thread cannot process other JavaScript tasks or update the page; very long loops can make the page appear frozen. The browser can do other work on separate threads, but the loop itself does not yield to them.</p>
+      </li>
+      <li>
+        <strong>How are rows and columns related in nested for loops, and can their order change?</strong>
+        <p>Usually the outer loop selects a row and the inner loop visits every column in that row. The inner loop finishes all its iterations before the outer loop advances. The loops can be reversed, but then the inner index changes fastest and the output is grouped differently: the traversal order changes, even if the same row-column combinations are visited. For a printed table, keeping rows on the outside and columns on the inside naturally prints one complete row at a time.</p>
+      </li>
     </ol>
     <script type="module" src="./task_3-2.mjs" defer></script>
   </body>
