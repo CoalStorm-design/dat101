@@ -9,9 +9,36 @@
     <div style="padding: 10px; min-width: 512px; border: darkblue thin solid; background-color: antiquewhite; font-family: 'Courier New', serif">
       <span id="txtOut" style="white-space: nowrap"></span>
     </div>
+
     <ol>
-      <li>[Write the question here, and copy this for more questions]</li>
-      <p>[Write your answer here, and copy this for more answers]</p>
+      <li>
+        <p><strong>What is the difference between invoking and creating a function?</strong></p>
+        <p>Creating a function defines what it should do. Invoking (or calling) it runs that code.</p>
+      </li>
+      <li>
+        <p><strong>Explain the syntax regarding semicolons and code blocks.</strong></p>
+        <p>Semicolons terminate statements in JavaScript and help avoid ambiguity caused by automatic semicolon insertion (ASI). Curly braces <code>{}</code> are used to group statements into a code block, and a block itself does not need a semicolon after it.</p>
+      </li>
+      <li>
+        <p><strong>What happens when we try to store values from a function when it doesn't return any?</strong></p>
+        <p>The function call evaluates to <code>undefined</code>, so the variable stores <code>undefined</code>.</p>
+      </li>
+      <li>
+        <p><strong>How do we separate parameters from each other when creating a function?</strong></p>
+        <p>Separate the parameters with commas, for example: <code>function add(a, b) { ... }</code>.</p>
+      </li>
+      <li>
+        <p><strong>How are parameter names related during function invocation and creation?</strong></p>
+        <p>Parameter names are local names inside the function. When the function is called, arguments are assigned to parameters by their position, not by their names.</p>
+      </li>
+      <li>
+        <p><strong>Why is a parameter <code>undefined</code> when a function call is missing a parameter?</strong></p>
+        <p>JavaScript assigns <code>undefined</code> to a parameter when no corresponding argument is provided, unless the parameter has a default value.</p>
+      </li>
+      <li>
+        <p><strong>What happens when we use recursive functions?</strong></p>
+        <p>A recursive function calls itself. Each call runs with its own parameters and waits for the next call to finish. A base case is needed to stop the recursion; otherwise, it can continue until the call stack is exhausted.</p>
+      </li>
     </ol>
     <script type="module" src="./task_3-3.mjs" defer></script>
   </body>
