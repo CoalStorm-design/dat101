@@ -1,163 +1,273 @@
 "use strict";
+
 import { printOut, newLine } from "../../common/script/utils.mjs";
 
 printOut("--- Part 1 ----------------------------------------------------------------------------------------------");
-{
-	let countingUpLine = "Counting up: ";
-	for (let number = 1; number <= 10; number++) {
-		countingUpLine += `${number}${number < 10 ? " " : ""}`;
-	}
-	printOut(countingUpLine);
 
-	let countingDownLine = "Counting down: ";
-	for (let number = 10; number >= 1; number--) {
-		countingDownLine += `${number}${number > 1 ? " " : ""}`;
-	}
-	printOut(countingDownLine);
+// Teller opp fra 1 til 10
+let tellerOpp = "Teller opp: ";
+
+for (let tall = 1; tall <= 10; tall++) {
+    tellerOpp += tall + " ";
 }
+
+printOut(tellerOpp.trim());
+
+// Teller ned fra 10 til 1
+let tellerNed = "Teller ned: ";
+
+for (let tall = 10; tall >= 1; tall--) {
+    tellerNed += tall + " ";
+}
+
+printOut(tellerNed.trim());
 
 printOut(newLine);
 
 printOut("--- Part 2 ----------------------------------------------------------------------------------------------");
-{
-	const targetNumber = 45;
-	let guessedNumber = 0;
 
-	while (guessedNumber !== targetNumber) {
-		guessedNumber = Math.floor(Math.random() * 60) + 1;
-	}
+// Datamaskinen gjetter tilfeldige tall til den finner 45
+const målTall1 = 45;
+let gjettetTall1 = 0;
 
-	printOut(`The computer guessed ${guessedNumber}.`);
+while (gjettetTall1 !== målTall1) {
+    gjettetTall1 = Math.floor(Math.random() * 60) + 1;
 }
+
+printOut("Datamaskinen gjettet " + gjettetTall1);
 
 printOut(newLine);
 
 printOut("--- Part 3 ----------------------------------------------------------------------------------------------");
-{
-	const targetNumber = 45;
-	let guessedNumber = 0;
-	let guessCount = 0;
-	const startTime = Date.now();
 
-	while (guessedNumber !== targetNumber) {
-		guessedNumber = Math.floor(Math.random() * 1_000_000) + 1;
-		guessCount++;
-	}
+// Samme som del 2, men teller hvor mange forsøk som brukes
+const målTall2 = 45;
+let gjettetTall2 = 0;
+let antallForsøk = 0;
 
-	const elapsedMilliseconds = Date.now() - startTime;
-	printOut(`The computer guessed ${guessedNumber} in ${guessCount} guesses and ${elapsedMilliseconds} ms.`);
+const startTid = Date.now();
+
+while (gjettetTall2 !== målTall2) {
+    gjettetTall2 = Math.floor(Math.random() * 1000000) + 1;
+    antallForsøk++;
 }
+
+const bruktTid = Date.now() - startTid;
+
+printOut(
+    "Datamaskinen gjettet " +
+    gjettetTall2 +
+    " etter " +
+    antallForsøk +
+    " forsøk på " +
+    bruktTid +
+    " ms"
+);
 
 printOut(newLine);
 
 printOut("--- Part 4 ----------------------------------------------------------------------------------------------");
-{
-	let primeNumbers = "Prime numbers below 200: ";
 
-	for (let candidate = 2; candidate < 200; candidate++) {
-		let divisor = 2;
-		let isPrime = true;
+// Finner alle primtall under 200
+let primtall = "Primtall under 200: ";
 
-		while (divisor <= Math.sqrt(candidate) && isPrime) {
-			if (candidate % divisor === 0) {
-				isPrime = false;
-			}
-			divisor++;
-		}
+for (let tall = 2; tall < 200; tall++) {
 
-		if (isPrime) {
-			primeNumbers += `${candidate} `;
-		}
-	}
+    let erPrimtall = true;
 
-	printOut(primeNumbers.trim());
+    for (let deler = 2; deler <= Math.sqrt(tall); deler++) {
+        if (tall % deler === 0) {
+            erPrimtall = false;
+        }
+    }
+
+    if (erPrimtall) {
+        primtall += tall + " ";
+    }
 }
+
+printOut(primtall.trim());
 
 printOut(newLine);
 
 printOut("--- Part 5 ----------------------------------------------------------------------------------------------");
-{
-	for (let row = 1; row <= 7; row++) {
-		let rowText = "";
 
-		for (let column = 1; column <= 9; column++) {
-			rowText += `${column === 1 ? "" : " "} K${column}R${row}`;
-		}
+// Skriver ut et rutenett med 7 rader og 9 kolonner
+for (let rad = 1; rad <= 7; rad++) {
 
-		printOut(rowText);
-	}
+    let tekst = "";
+
+    for (let kolonne = 1; kolonne <= 9; kolonne++) {
+        tekst += " K" + kolonne + "R" + rad;
+    }
+
+    printOut(tekst.trim());
 }
 
 printOut(newLine);
 
 printOut("--- Part 6 ----------------------------------------------------------------------------------------------");
-{
-	for (let student = 1; student <= 5; student++) {
-		const points = Math.floor(Math.random() * 236) + 1;
-		const percentage = (points / 236) * 100;
-		let letterGrade;
 
-		if (percentage >= 89) {
-			letterGrade = "A";
-		} else if (percentage >= 77) {
-			letterGrade = "B";
-		} else if (percentage >= 65) {
-			letterGrade = "C";
-		} else if (percentage >= 53) {
-			letterGrade = "D";
-		} else if (percentage >= 41) {
-			letterGrade = "E";
-		} else {
-			letterGrade = "F";
-		}
+// Trekker poengsummer og regner ut karakter
+for (let elev = 1; elev <= 5; elev++) {
 
-		printOut(`Student ${student}: ${points}/236 points (${percentage.toFixed(1)}%) — grade ${letterGrade}`);
-	}
+    const poeng = Math.floor(Math.random() * 236) + 1;
+    const prosent = (poeng / 236) * 100;
+
+    let karakter;
+
+    if (prosent >= 89) {
+        karakter = "A";
+    } else if (prosent >= 77) {
+        karakter = "B";
+    } else if (prosent >= 65) {
+        karakter = "C";
+    } else if (prosent >= 53) {
+        karakter = "D";
+    } else if (prosent >= 41) {
+        karakter = "E";
+    } else {
+        karakter = "F";
+    }
+
+    printOut(
+        "Elev " +
+        elev +
+        ": " +
+        poeng +
+        "/236 poeng (" +
+        prosent.toFixed(1) +
+        "%) - karakter " +
+        karakter
+    );
 }
 
 printOut(newLine);
 
 printOut("--- Part 7 ----------------------------------------------------------------------------------------------");
-{
-	function rollDice() {
-		return Array.from({ length: 6 }, () => Math.floor(Math.random() * 6) + 1);
-	}
 
-	function getFaceCounts(dice) {
-		const faceCounts = Array(7).fill(0);
-		for (const die of dice) {
-			faceCounts[die]++;
-		}
-		return faceCounts;
-	}
+// Kaster seks terninger
+function kastTerninger() {
+    const terninger = [];
 
-	function countThrowsUntil(description, isTargetRoll) {
-		let throwCount = 0;
-		let dice;
+    for (let i = 0; i < 6; i++) {
+        terninger.push(Math.floor(Math.random() * 6) + 1);
+    }
 
-		do {
-			dice = rollDice();
-			throwCount++;
-		} while (!isTargetRoll(dice, getFaceCounts(dice)));
-
-		printOut(`${description}: ${throwCount} throws (final roll: ${dice.join(", ")})`);
-	}
-
-	countThrowsUntil("Full straight (1-6)", (dice, faceCounts) =>
-		dice.length === 6 && faceCounts.slice(1).every((count) => count === 1)
-	);
-
-	countThrowsUntil("Three pairs", (_dice, faceCounts) =>
-		faceCounts.slice(1).filter((count) => count === 2).length === 3
-	);
-
-	countThrowsUntil("Tower (one pair and one four-of-a-kind)", (_dice, faceCounts) =>
-		faceCounts.slice(1).includes(2) && faceCounts.slice(1).includes(4)
-	);
-
-	countThrowsUntil("Yahtzee (all the same)", (_dice, faceCounts) =>
-		faceCounts.slice(1).some((count) => count === 6)
-	);
+    return terninger;
 }
+
+// Teller hvor mange ganger hvert tall forekommer
+function tellTerninger(terninger) {
+
+    const antall = [0, 0, 0, 0, 0, 0, 0];
+
+    for (const terning of terninger) {
+        antall[terning]++;
+    }
+
+    return antall;
+}
+
+// Full straight
+let kast = 0;
+let terninger;
+let funnet = false;
+
+while (!funnet) {
+
+    terninger = kastTerninger();
+    kast++;
+
+    const antall = tellTerninger(terninger);
+
+    funnet = true;
+
+    for (let i = 1; i <= 6; i++) {
+        if (antall[i] !== 1) {
+            funnet = false;
+        }
+    }
+}
+
+printOut("Full straight: " + kast + " kast");
+
+// Tre par
+kast = 0;
+funnet = false;
+
+while (!funnet) {
+
+    terninger = kastTerninger();
+    kast++;
+
+    const antall = tellTerninger(terninger);
+
+    let par = 0;
+
+    for (let i = 1; i <= 6; i++) {
+        if (antall[i] === 2) {
+            par++;
+        }
+    }
+
+    if (par === 3) {
+        funnet = true;
+    }
+}
+
+printOut("Tre par: " + kast + " kast");
+
+// Tårn
+kast = 0;
+funnet = false;
+
+while (!funnet) {
+
+    terninger = kastTerninger();
+    kast++;
+
+    const antall = tellTerninger(terninger);
+
+    let harPar = false;
+    let harFireLike = false;
+
+    for (let i = 1; i <= 6; i++) {
+
+        if (antall[i] === 2) {
+            harPar = true;
+        }
+
+        if (antall[i] === 4) {
+            harFireLike = true;
+        }
+    }
+
+    if (harPar && harFireLike) {
+        funnet = true;
+    }
+}
+
+printOut("Tårn: " + kast + " kast");
+
+// Yahtzee
+kast = 0;
+funnet = false;
+
+while (!funnet) {
+
+    terninger = kastTerninger();
+    kast++;
+
+    const antall = tellTerninger(terninger);
+
+    for (let i = 1; i <= 6; i++) {
+        if (antall[i] === 6) {
+            funnet = true;
+        }
+    }
+}
+
+printOut("Yahtzee: " + kast + " kast");
 
 printOut(newLine);

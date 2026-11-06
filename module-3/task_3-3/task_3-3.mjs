@@ -1,229 +1,312 @@
 "use strict";
+
 import { printOut, newLine } from "../../common/script/utils.mjs";
 
 printOut("--- Part 1 ----------------------------------------------------------------------------------------------");
-{
-	function printTodayDate() {
-		const today = new Date();
-		printOut(today.toLocaleDateString("no-NB", {
-			weekday: "long",
-			year: "numeric",
-			month: "long",
-			day: "numeric"
-		}));
-	}
 
-	printTodayDate();
+// Skriver ut dagens dato
+function skrivDagensDato() {
+    const iDag = new Date();
+
+    printOut(
+        iDag.toLocaleDateString("no-NB", {
+            weekday: "long",
+            year: "numeric",
+            month: "long",
+            day: "numeric"
+        })
+    );
 }
+
+skrivDagensDato();
 
 printOut(newLine);
 
 printOut("--- Part 2 ----------------------------------------------------------------------------------------------");
-{
-	function getTodayDate() {
-		const today = new Date();
-		printOut(`Today's date: ${today.toLocaleDateString("no-NB", {
-			weekday: "long",
-			year: "numeric",
-			month: "long",
-			day: "numeric"
-		})}`);
-		return today;
-	}
 
-	function daysUntilRelease(today, releaseDate) {
-		const millisecondsPerDay = 24 * 60 * 60 * 1000;
-		const todayUtc = Date.UTC(today.getFullYear(), today.getMonth(), today.getDate());
-		const releaseUtc = Date.UTC(releaseDate.getUTCFullYear(), releaseDate.getUTCMonth(), releaseDate.getUTCDate());
-		return Math.round((releaseUtc - todayUtc) / millisecondsPerDay);
-	}
+// Returnerer dagens dato
+function hentDagensDato() {
+    const iDag = new Date();
 
-	const today = getTodayDate();
-	const releaseDate = new Date("2025-05-14T00:00:00Z");
-	const daysLeft = daysUntilRelease(today, releaseDate);
+    printOut(
+        "Dagens dato: " +
+        iDag.toLocaleDateString("no-NB", {
+            weekday: "long",
+            year: "numeric",
+            month: "long",
+            day: "numeric"
+        })
+    );
 
-	if (daysLeft > 0) {
-		printOut(`2XKO launches in ${daysLeft} days!`);
-	} else if (daysLeft === 0) {
-		printOut("2XKO launches today!");
-	} else {
-		printOut(`The 2XKO launch date was ${Math.abs(daysLeft)} days ago.`);
-	}
+    return iDag;
+}
+
+// Regner ut antall dager mellom to datoer
+function dagerTilLansering(iDag, lanseringsDato) {
+
+    const millisekunderPerDag = 24 * 60 * 60 * 1000;
+
+    const dato1 = Date.UTC(
+        iDag.getFullYear(),
+        iDag.getMonth(),
+        iDag.getDate()
+    );
+
+    const dato2 = Date.UTC(
+        lanseringsDato.getUTCFullYear(),
+        lanseringsDato.getUTCMonth(),
+        lanseringsDato.getUTCDate()
+    );
+
+    return Math.round((dato2 - dato1) / millisekunderPerDag);
+}
+
+const iDag = hentDagensDato();
+const lanseringsDato = new Date("2025-05-14");
+const dagerIgjen = dagerTilLansering(iDag, lanseringsDato);
+
+if (dagerIgjen > 0) {
+    printOut("2XKO lanseres om " + dagerIgjen + " dager!");
+}
+else if (dagerIgjen === 0) {
+    printOut("2XKO lanseres i dag!");
+}
+else {
+    printOut("Lanseringen var for " + Math.abs(dagerIgjen) + " dager siden.");
 }
 
 printOut(newLine);
 
 printOut("--- Part 3 ----------------------------------------------------------------------------------------------");
-{
-	function printCircleMeasurements(radius) {
-		const diameter = 2 * radius;
-		const circumference = 2 * Math.PI * radius;
-		const area = Math.PI * radius ** 2;
-		printOut(`Radius ${radius}: diameter ${diameter}, circumference ${circumference.toFixed(2)}, area ${area.toFixed(2)}`);
-	}
 
-	printCircleMeasurements(5);
+// Regner ut diameter, omkrets og areal
+function skrivSirkelInfo(radius) {
+
+    const diameter = radius * 2;
+    const omkrets = 2 * Math.PI * radius;
+    const areal = Math.PI * radius * radius;
+
+    printOut(
+        "Radius: " + radius +
+        ", Diameter: " + diameter +
+        ", Omkrets: " + omkrets.toFixed(2) +
+        ", Areal: " + areal.toFixed(2)
+    );
 }
+
+skrivSirkelInfo(5);
 
 printOut(newLine);
 
 printOut("--- Part 4 ----------------------------------------------------------------------------------------------");
-{
-	function printRectangleMeasurements({ width, height }) {
-		const circumference = 2 * (width + height);
-		const area = width * height;
-		printOut(`Rectangle ${width} × ${height}: circumference ${circumference}, area ${area}`);
-	}
 
-	printRectangleMeasurements({ width: 8, height: 4 });
+// Regner ut omkrets og areal av et rektangel
+function skrivRektangelInfo(bredde, høyde) {
+
+    const omkrets = 2 * (bredde + høyde);
+    const areal = bredde * høyde;
+
+    printOut(
+        "Bredde: " + bredde +
+        ", Høyde: " + høyde +
+        ", Omkrets: " + omkrets +
+        ", Areal: " + areal
+    );
 }
+
+skrivRektangelInfo(8, 4);
 
 printOut(newLine);
 
 printOut("--- Part 5 ----------------------------------------------------------------------------------------------");
-{
-	function printTemperatureConversions(temperature, temperatureType) {
-		const type = temperatureType.toUpperCase();
-		let celsius;
 
-		if (type === "C") {
-			celsius = temperature;
-		} else if (type === "F") {
-			celsius = (temperature - 32) * 5 / 9;
-		} else if (type === "K") {
-			celsius = temperature - 273.15;
-		} else {
-			printOut(`Unknown temperature type: ${temperatureType}`);
-			return;
-		}
+// Gjør om mellom Celsius, Fahrenheit og Kelvin
+function konverterTemperatur(temp, type) {
 
-		const fahrenheit = celsius * 9 / 5 + 32;
-		const kelvin = celsius + 273.15;
-		printOut(`${temperature}°${type} = ${Math.round(celsius)}°C, ${Math.round(fahrenheit)}°F, ${Math.round(kelvin)} K`);
-	}
+    type = type.toUpperCase();
 
-	printTemperatureConversions(25, "C");
-	printTemperatureConversions(77, "F");
-	printTemperatureConversions(300, "K");
+    let celsius;
+
+    if (type === "C") {
+        celsius = temp;
+    }
+    else if (type === "F") {
+        celsius = (temp - 32) * 5 / 9;
+    }
+    else if (type === "K") {
+        celsius = temp - 273.15;
+    }
+    else {
+        printOut("Ukjent temperaturtype");
+        return;
+    }
+
+    const fahrenheit = celsius * 9 / 5 + 32;
+    const kelvin = celsius + 273.15;
+
+    printOut(
+        temp + "°" + type +
+        " = " +
+        Math.round(celsius) + "°C, " +
+        Math.round(fahrenheit) + "°F, " +
+        Math.round(kelvin) + " K"
+    );
 }
+
+konverterTemperatur(25, "C");
+konverterTemperatur(77, "F");
+konverterTemperatur(300, "K");
 
 printOut(newLine);
 
 printOut("--- Part 6 ----------------------------------------------------------------------------------------------");
-{
-	function calculateNetPrice(grossPrice, vatGroup) {
-		const vatRates = {
-			normal: 25,
-			food: 15,
-			hotel: 10,
-			transport: 10,
-			cinema: 10
-		};
-		const vatRate = vatRates[vatGroup.toLowerCase()];
 
-		if (vatRate === undefined) {
-			printOut("Unknown VAT group!");
-			return NaN;
-		}
+// Regner ut pris uten mva
+function beregnPrisUtenMva(prisMedMva, gruppe) {
 
-		return (100 * grossPrice) / (vatRate + 100);
-	}
+    let mva = 0;
 
-	printOut(`Normal VAT: net price ${calculateNetPrice(125, "normal").toFixed(2)}`);
-	printOut(`Food VAT: net price ${calculateNetPrice(115, "FOOD").toFixed(2)}`);
-	printOut(`Cinema VAT: net price ${calculateNetPrice(110, "cinema").toFixed(2)}`);
-	const unknownNetPrice = calculateNetPrice(100, "goblins");
-	printOut(`Unknown group result: ${unknownNetPrice}`);
+    if (gruppe.toLowerCase() === "normal") {
+        mva = 25;
+    }
+    else if (gruppe.toLowerCase() === "food") {
+        mva = 15;
+    }
+    else if (
+        gruppe.toLowerCase() === "hotel" ||
+        gruppe.toLowerCase() === "transport" ||
+        gruppe.toLowerCase() === "cinema"
+    ) {
+        mva = 10;
+    }
+    else {
+        printOut("Ukjent mva-gruppe");
+        return NaN;
+    }
+
+    return (100 * prisMedMva) / (100 + mva);
 }
+
+printOut("Normal mva: " + beregnPrisUtenMva(125, "normal").toFixed(2));
+printOut("Mat mva: " + beregnPrisUtenMva(115, "food").toFixed(2));
+printOut("Kino mva: " + beregnPrisUtenMva(110, "cinema").toFixed(2));
 
 printOut(newLine);
 
 printOut("--- Part 7 ----------------------------------------------------------------------------------------------");
-{
-	function calculateSpeedDistanceOrTime(distance, time, speed) {
-		const missingCount = [distance, time, speed].filter((value) => value === undefined).length;
-		if (missingCount !== 1) {
-			return NaN;
-		}
 
-		if (speed === undefined) {
-			return distance / time;
-		}
-		if (time === undefined) {
-			return distance / speed;
-		}
-		return speed * time;
-	}
+// Regner ut fart, tid eller distanse
+function beregnFartTidDistanse(distanse, tid, fart) {
 
-	printOut(`Speed (distance 150, time 3): ${calculateSpeedDistanceOrTime(150, 3, undefined)}`);
-	printOut(`Time (distance 150, speed 50): ${calculateSpeedDistanceOrTime(150, undefined, 50)}`);
-	printOut(`Distance (time 3, speed 50): ${calculateSpeedDistanceOrTime(undefined, 3, 50)}`);
-	printOut(`Invalid with two missing values: ${calculateSpeedDistanceOrTime(150, undefined, undefined)}`);
+    let mangler = 0;
+
+    if (distanse === undefined) mangler++;
+    if (tid === undefined) mangler++;
+    if (fart === undefined) mangler++;
+
+    if (mangler !== 1) {
+        return NaN;
+    }
+
+    if (fart === undefined) {
+        return distanse / tid;
+    }
+
+    if (tid === undefined) {
+        return distanse / fart;
+    }
+
+    return fart * tid;
 }
+
+printOut("Fart: " + beregnFartTidDistanse(150, 3, undefined));
+printOut("Tid: " + beregnFartTidDistanse(150, undefined, 50));
+printOut("Distanse: " + beregnFartTidDistanse(undefined, 3, 50));
 
 printOut(newLine);
 
 printOut("--- Part 8 ----------------------------------------------------------------------------------------------");
-{
-	function padText(text, maximumSize, paddingCharacter, addBefore) {
-		const paddingSize = Math.max(0, maximumSize - text.length);
-		const padding = paddingCharacter.repeat(paddingSize);
-		return addBefore ? padding + text : text + padding;
-	}
 
-	printOut(padText("JavaScript", 16, "*", true));
-	printOut(padText("Loops", 12, "-", false));
+// Fyller ut tekst med tegn
+function fyllUtTekst(tekst, lengde, tegn, foran) {
+
+    while (tekst.length < lengde) {
+
+        if (foran) {
+            tekst = tegn + tekst;
+        }
+        else {
+            tekst = tekst + tegn;
+        }
+    }
+
+    return tekst;
 }
+
+printOut(fyllUtTekst("JavaScript", 16, "*", true));
+printOut(fyllUtTekst("Loops", 12, "-", false));
 
 printOut(newLine);
 
 printOut("--- Part 9 ----------------------------------------------------------------------------------------------");
-{
-	function checkNumberPattern(numberOfLines) {
-		let nextNumber = 1;
 
-		for (let line = 1; line <= numberOfLines; line++) {
-			let leftSum = 0;
-			let rightSum = 0;
+// Sjekker et tallmønster
+function sjekkTallmonster(antallLinjer) {
 
-			for (let term = 0; term <= line; term++) {
-				leftSum += nextNumber;
-				nextNumber++;
-			}
-			for (let term = 0; term < line; term++) {
-				rightSum += nextNumber;
-				nextNumber++;
-			}
+    let nesteTall = 1;
 
-			if (leftSum !== rightSum) {
-				printOut(`Pattern failed on line ${line}: left sum ${leftSum}, right sum ${rightSum}.`);
-				return false;
-			}
-		}
+    for (let linje = 1; linje <= antallLinjer; linje++) {
 
-		printOut("Maths fun!");
-		return true;
-	}
+        let venstreSum = 0;
+        let hoyreSum = 0;
 
-	checkNumberPattern(200);
+        for (let i = 0; i <= linje; i++) {
+            venstreSum += nesteTall;
+            nesteTall++;
+        }
+
+        for (let i = 0; i < linje; i++) {
+            hoyreSum += nesteTall;
+            nesteTall++;
+        }
+
+        if (venstreSum !== hoyreSum) {
+            printOut(
+                "Feil på linje " +
+                linje +
+                ". Venstre sum: " +
+                venstreSum +
+                ", Høyre sum: " +
+                hoyreSum
+            );
+            return false;
+        }
+    }
+
+    printOut("Maths fun!");
+    return true;
 }
+
+sjekkTallmonster(200);
 
 printOut(newLine);
 
-/* Task 10*/
 printOut("--- Part 10 ---------------------------------------------------------------------------------------------");
-{
-	function factorial(number) {
-		if (!Number.isInteger(number) || number < 0) {
-			return NaN;
-		}
-		if (number <= 1) {
-			return 1;
-		}
-		return number * factorial(number - 1);
-	}
 
-	printOut(`6! = ${factorial(6)}`);
+// Regner ut fakultet
+function fakultet(tall) {
+
+    if (!Number.isInteger(tall) || tall < 0) {
+        return NaN;
+    }
+
+    if (tall <= 1) {
+        return 1;
+    }
+
+    return tall * fakultet(tall - 1);
 }
+
+printOut("6! = " + fakultet(6));
 
 printOut(newLine);
